@@ -1,3 +1,9 @@
+#netflix gpt
+    header
+    login form
+    sign up form  
+
+
 
 # FEATURES
    1-LOGIN/SIGNUP
