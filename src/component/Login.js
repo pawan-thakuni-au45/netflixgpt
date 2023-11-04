@@ -1,7 +1,7 @@
 import React, { useState,useRef } from 'react'
 import Header from './Header'
 import {checkValidate} from '../utils/validate'
-import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword } from "firebase/auth";
+import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword,  updateProfile} from "firebase/auth";
 import {auth} from '../utils/firebase'
 import { useNavigate } from 'react-router-dom';
 
@@ -9,7 +9,7 @@ const Login = () => {
     const [user,setUser]=useState(true)
     const[errorMessage,setErrormsg]=useState(null)
     const navi=useNavigate()
-
+ const name=useRef(null)
     const email=useRef(null)
     const password=useRef(null)
 
@@ -25,13 +25,20 @@ const Login = () => {
         if(message) return 
 
         //sign ,signup
-        if(message===null){
+        if(!user){
             createUserWithEmailAndPassword(auth, email.current.value, password.current.value)
   .then((userCredential) => {
     // Signed up 
     const user = userCredential.user;
-    navi('/browser')
-    // ...
+    updateProfile(user, {
+        displayName: name.current.value, photoURL: "https://assets.cntraveller.in/photos/625eadcff9b9b60bcf96009e/master/pass/Munsyari.png"
+      }).catch((error) => {
+        // An error occurred
+        navi("/error")
+        // ...
+      });
+   navi('/browser')
+//     // ...
   })
   .catch((error) => {
     const errorCode = error.code;
@@ -56,7 +63,7 @@ signInWithEmailAndPassword(auth, email.current.value, password.current.value)
   .catch((error) => {
     const errorCode = error.code;
     const errorMessage = error.message;
-    setErrormsg(errorCode+""+errorMessage)
+    setErrormsg(errorCode+"-"+errorMessage)
     // ..
   });
         }
@@ -83,12 +90,12 @@ signInWithEmailAndPassword(auth, email.current.value, password.current.value)
       <form onSubmit ={(e)=>e.preventDefault()}className='absolute p-12 bg-black w-4/12  mt-24 mx-auto left-0 right-0 text-white rounded-2xl bg-opacity-60' >
     
            <h1 className='p-4 h-10 '>{user? "Sign In":"Sign Up"}</h1>
-           {      !user &&(       <input type='text' placeholder='NAME' className='p-2 m-2 w-full bg-gray-500'></input>)
+           {      !user &&(       <input ref={name} type='text' placeholder='NAME' className='p-2 m-2 w-full bg-gray-500'></input>)
     }
         <input ref={email} type='text' placeholder='EMAIL' className='p-2 m-2 w-full bg-gray-500'></input>
         <input ref={password} type='password' placeholder='PASSWORD' className='p-2 m-2 w-full bg-gray-500'></input>
         <p className='text-red-600 ml-5'> {errorMessage}</p>
-        <button className='p-4 m-4 bg-red-500' onClick={handleButton}> {user? "Sign In":"Sign Up"}</button>
+        <button className='p-4 m-4 bg-red-500' onClick={handleButton}> {user? "Sign In ":"Sign Up"}</button>
 
         <p className='py-4 ml-5 cursor-pointer' onClick={toggleClick}> {user ?"New To Netflix?Sing Up now":"Already registerd Sign In now"}</p>
       
