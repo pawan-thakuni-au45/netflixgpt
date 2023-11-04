@@ -1,7 +1,11 @@
-#netflix gpt
+# NETFLIX  GPT
     header
     login form
     sign up form  
+    routnig
+    form validation
+    what is useRef Hook
+    i use Regex for passowrd and email 
 
 
 
