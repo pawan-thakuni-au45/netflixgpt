@@ -13,6 +13,8 @@ const Login = () => {
     const email=useRef(null)
     const password=useRef(null)
 
+    console.log(email,'dm');
+
 
     const handleButton=()=>{
         //validation to check if email and pass is right or not if not then perform this operation
@@ -106,3 +108,11 @@ signInWithEmailAndPassword(auth, email.current.value, password.current.value)
 }
 
 export default Login
+
+
+
+
+
+// http GET 'https://api.themoviedb.org/3/movie/now_playing?language=en-US&page=1' \
+//   Authorization:'Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiIxMDQ1ODY2ZGNkOWJlNWZiMGQxMGEyYmQ0OWRiNTRjOSIsInN1YiI6IjY1NDZmY2IxNDFhNTYxMzM2YTIyYTJlNyIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.pCOyC99hFKlfebnchjczQnV2crwP5Wj93RnqOgiqmnI' \
+//   accept:application/json
