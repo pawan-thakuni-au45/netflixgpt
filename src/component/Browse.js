@@ -2,6 +2,8 @@ import React, { useEffect } from 'react'
 import Header from './Header'
 
 import useNowPlayingMovies from "../hooks/useNowPlayingMovies"
+import usePopolureMovies from '../hooks/usePopolurMovies'
+import useTopRatedMovies from '../hooks/useTopRatedMovies'
 import MainContainer from './MainContainer'
 import SecondryContainer from './SecondryContainer'
 
@@ -13,10 +15,12 @@ const Browse = () => {
   //this code fetching the data and putting those data in the store  
 
   useNowPlayingMovies()
+  usePopolureMovies()
+  useTopRatedMovies()
 
 
   return (
-    <div className='absolute bg-gradient-to-b from-black z-10'>
+    <div className='bg-gradient-to-b from-black z-10'>
      <Header/>
      <MainContainer/>
      <SecondryContainer/>
