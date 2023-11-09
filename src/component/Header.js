@@ -3,11 +3,17 @@ import { signOut } from 'firebase/auth';
 
 import { useNavigate } from 'react-router-dom';
 import {auth} from '../utils/firebase'
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
+import { tooglegptsearchview } from '../utils/gptSlice';
+
+import { SUPPORTED_LANGUAGE } from '../utils/constant';
+import { changeLang } from '../utils/configSlice';
+
 
 const Header = () => {
     const nave=useNavigate()
     const user=useSelector((store)=>store.user)
+    const dispatch=useDispatch()
 
    
 
@@ -18,6 +24,16 @@ const Header = () => {
       }).catch((error) => {
         // An error happened.
       });
+    }
+
+    const HandleGptSearch=()=>{
+     dispatch(tooglegptsearchview())
+
+
+    }
+
+    const handlelangchange=(e)=>{
+      dispatch(changeLang(e.target.value))
     }
   return (
    
@@ -30,10 +46,20 @@ const Header = () => {
 
     
 {  user &&(
-      <div className='flex w-12 h-12 justify-between ' >
-      <img  alt='usericon' src="https://occ-0-4994-2164.1.nflxso.net/dnm/api/v6/K6hjPJd6cR6FpVELC5Pd6ovHRSk/AAAABY20DrC9-11ewwAs6nfEgb1vrORxRPP9IGmlW1WtKuaLIz8VxCx5NryzDK3_ez064IsBGdXjVUT59G5IRuFdqZlCJCneepU.png?r=229"
+      <div className=' flex p-2' >
+      <select onChange={handlelangchange} className='rounded-md bg-gray-500 text-white m-2'>
+      {SUPPORTED_LANGUAGE.map(lang=> <option key={lang.identifire} value={lang.identifire}>{lang.name}</option>)}
+        
+
+      </select>
+      <button onClick={HandleGptSearch} className='px-4 py-2 mx-4 bg-purple-800 text-white rounded-md'>
+    GPT Search
+</button>
+     
+      <img className="w-12 h-12" alt='usericon' src="https://occ-0-4994-2164.1.nflxso.net/dnm/api/v6/K6hjPJd6cR6FpVELC5Pd6ovHRSk/AAAABY20DrC9-11ewwAs6nfEgb1vrORxRPP9IGmlW1WtKuaLIz8VxCx5NryzDK3_ez064IsBGdXjVUT59G5IRuFdqZlCJCneepU.png?r=229"
     />
-       <button onClick={handleSignout} className='font-bold text-white '>sign out</button>
+    
+       <button onClick={handleSignout} className='font-bold text-white '>(sign out)</button>
     </div>
 )
 }
