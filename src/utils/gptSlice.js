@@ -5,12 +5,22 @@ const gptslice=createSlice({
 
     name:"gptslice",
     initialState:{
-        showgptsearch:false
+        showgptsearch:false,
+     
+        movieName:null,
+        temSearch:null
+
     },
 
     reducers:{
         tooglegptsearchview:(state,action)=>{
             state.showgptsearch=!state.showgptsearch
+        },
+        addGptMoviesResults:(state,action)=>{
+            const {movieName, temSearch}=action.payload
+            state.movieName=movieName
+            state.temSearch=temSearch
+
         }
     }
 
@@ -19,5 +29,5 @@ const gptslice=createSlice({
 
 
 })
-export const {tooglegptsearchview}= gptslice.actions
+export const {tooglegptsearchview,addGptMoviesResults}= gptslice.actions
 export default gptslice.reducer
